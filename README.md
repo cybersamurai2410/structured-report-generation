@@ -5,6 +5,7 @@ The Agent takes in user defined topics and structure, then plans the topics of t
 
 This project uses [llama-3.3-70b](https://build.nvidia.com/meta/llama-3_3-70b-instruct) via NVIDIA NIM API for invoking the LLM and Tavily API for web search.
 
+## Agentic Workflow
 **Phase 1 - Planning**
 * Analyzes user inputs
 * Maps out report sections
