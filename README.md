@@ -19,3 +19,5 @@ The architecture of this project is inspired and adapted from this repository [R
 
 ![image](https://github.com/user-attachments/assets/a1cb48e6-55bc-4217-834d-d2d8fe7ab6c4)
 
+**Agentic Workflow:**<br>
+![image](https://github.com/user-attachments/assets/dcf187d7-9c28-4023-a06f-2b5b148ce0cb)
