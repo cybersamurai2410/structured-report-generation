@@ -26,3 +26,4 @@ The architecture of this project is inspired and adapted from this repository [R
 ![image](https://github.com/user-attachments/assets/dcf187d7-9c28-4023-a06f-2b5b148ce0cb)
 
 ## LangSmith Tracing  
+<img width="1916" alt="image" src="https://github.com/user-attachments/assets/4564635b-2567-445e-a88f-0adc50730b42" />
