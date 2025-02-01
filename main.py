@@ -137,6 +137,14 @@ async def podcast_from_report(voice="", language="en", duration=1):
     )
     speech_script = completion.choices[0].message.content
 
+    # response = oai_client.audio.speech.create(
+    #     model="tts-1",  
+    #     voice="alloy",  
+    #     input=speech_script,
+    # )
+    # with open("speech_script.mp3", "wb") as audio_file:
+    #     audio_file.write(response.content)
+
     audio = el_client.text_to_speech.convert_with_timestamps( # dict_keys(['audio_base64', 'alignment', 'normalized_alignment'])
         voice_id=voice,
         output_format="mp3_44100_128",
