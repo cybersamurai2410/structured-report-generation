@@ -1,5 +1,5 @@
 # Structured Report Generation
-Structured report generation using LLM powered agentic AI for any given topic by automatically planning then conducting research and writing sections simultaneously with concurrent processing. Integrated TTS API using the report to generate podcasts in audio format.  
+Structured report generation using LLM powered agentic AI for any given topic by automatically planning then conducting research and writing sections simultaneously with concurrent processing. Integrated TTS API using the report to generate podcasts in audio format with language translation.  
 
 The Agent takes in user defined topics and structure, then plans the topics of the section indicated in the structure. The Agent then perform web search on the given topics and uses this information to write the sections and synthesize the final report. The report is written in strategic sequence by writing research-based sections in parallel then write introductions and conclusions afterwards before connecting each of the sections.
 
