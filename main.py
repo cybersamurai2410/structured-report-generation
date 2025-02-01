@@ -1,9 +1,21 @@
 from planning import generate_report_plan
 from research_writer import section_builder_graph, graph
 
+import os 
+import base64
+import translators as ts
+from elevenlabs.client import ElevenLabs
+from openai import OpenAI
+
+oai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+el_client = ElevenLabs(api_key=os.getenv("ELEVENLABS_API_KEY"))
+
 # Tavily search parameters
 tavily_topic = "general"
-tavily_days = None # Only applicable for news topic
+tavily_days = None # Only applicable for news topic instead of general
+
+# Topic 
+report_topic = "Give an overview of capabilities and specific use case examples for these processing units: CPU, GPU."
 
 # Structure
 plan_report_structure = """This report type focuses on comparative analysis.
@@ -28,9 +40,6 @@ The report structure should include:
      * Highlights relative strengths and weaknesses
    - Final recommendations"""
 
-# Topic 
-plan_report_topic = "Give an overview of capabilities and specific use case examples for these processing units: CPU, GPU."
-
 # Structure
 report_structure = """This report type focuses on comparative analysis.
 
@@ -54,12 +63,15 @@ The report structure should include:
      * Highlights relative strengths and weaknesses
    - Final recommendations"""
 
-# Topic 
-report_topic = "Give an overview of capabilities and specific use case examples for these processing units: CPU, GPU."
-
 async def display_plan():
     # Generate report plan
-    sections = await generate_report_plan({"topic": plan_report_topic, "report_structure": plan_report_structure, "number_of_queries": 2, "tavily_topic": tavily_topic, "tavily_days": tavily_days})
+    sections = await generate_report_plan({
+        "topic": report_topic, 
+        "report_structure": plan_report_structure, 
+        "number_of_queries": 2, 
+        "tavily_topic": tavily_topic, 
+        "tavily_days": tavily_days
+        })
 
     # Print sections
     for section in sections['sections']:
@@ -92,7 +104,7 @@ async def display_section(plan):
     return section
 
 async def generate_report():
-    report = await graph.ainvoke({
+    report = await graph.ainvoke({ # The other parameters from ReportState class are populated during the execution 
         "topic": report_topic, 
         "report_structure": report_structure, 
         "number_of_queries": 2, 
@@ -100,10 +112,44 @@ async def generate_report():
         "tavily_days": tavily_days
     })
     
-    with open("report.md", "w", encoding="utf-8") as file:
-        file.write(report)
+    try:
+        report_text = report["final_report"]
+        with open("report.md", "w", encoding="utf-8") as file:
+            file.write(report_text)
+    except Exception as e:
+        print(f"[WARNING] Could not write to file: {e}")
 
     return report
+
+async def podcast_from_report(voice="", language="en", duration=1):
+    with open("report.md", "r", encoding="utf-8") as md_file:
+        report_text = md_file.read()
+    
+    if language.lower() != "en":
+        report_text = ts.deepl(report_text, to_language=language)
+
+    completion = oai_client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "developer", "content": "You are an expert personal tutor turning written reports into professional spoken lectures."},
+            {"role": "user", "content": f"Convert this report into a well-structured spoken lecture with duration around {duration} minutes:\n\n{report_text}"}
+        ]
+    )
+    speech_script = completion.choices[0].message.content
+
+    audio = el_client.text_to_speech.convert_with_timestamps( # dict_keys(['audio_base64', 'alignment', 'normalized_alignment'])
+        voice_id=voice,
+        output_format="mp3_44100_128",
+        text=speech_script,
+        model_id="eleven_multilingual_v2"
+    )
+
+    audio_base64 = audio["audio_base64"]  # Extract Base64 MP3
+    audio_bytes = base64.b64decode(audio_base64)  # Decode into MP3 bytes
+
+    # Save MP3 file
+    with open("speech_script_el.mp3", "wb") as audio_file:
+        audio_file.write(audio_bytes)
 
 async def main():
     plan = await display_plan()
@@ -114,6 +160,8 @@ async def main():
     report = await generate_report()
     print(report)
 
+    await podcast_from_report(voice="JBFqnCBsd6RMkjVDRZzb", language="en")
+
 if __name__ == "__main__":
     import asyncio
-    asyncio.run(main())
+    asyncio.run(main()) # Start event loop 
