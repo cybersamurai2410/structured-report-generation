@@ -5,7 +5,7 @@ The Agent takes in user defined topics and structure, then plans the topics of t
 
 View example of generated report [final_report.md](final_report.md)
 
-This project uses [llama-3.3-70b](https://build.nvidia.com/meta/llama-3_3-70b-instruct) via NVIDIA NIM API for invoking the LLM and Tavily API for web search.
+This project uses [o3-mini](https://platform.openai.com/docs/models#o3-mini) reasoning model via OpenAI API for the planning phase then [llama-3.3-70b](https://build.nvidia.com/meta/llama-3_3-70b-instruct) LLM via NVIDIA NIM API and Tavily API for the research and report writing phase.
 
 ## Agentic Workflow
 **Phase 1 - Planning**
