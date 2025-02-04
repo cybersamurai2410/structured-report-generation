@@ -4,16 +4,18 @@ from pydantic import BaseModel, Field
 import os
 from dotenv import load_dotenv
 
+from langchain_openai import ChatOpenAI
 from langchain_nvidia_ai_endpoints import ChatNVIDIA
 from tavily import TavilyClient, AsyncTavilyClient
 
-load_dotenv()
+load_dotenv(override=True)
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
 os.environ["LANGCHAIN_PROJECT"] = "report-mAIstro"
 
 tavily_client = TavilyClient()
 tavily_async_client = AsyncTavilyClient()
 llm = ChatNVIDIA(model="meta/llama-3.3-70b-instruct", temperature=0)
+planning_llm = ChatOpenAI(model="o3-mini", reasoning_effort="low")
 
 class Section(BaseModel):
     name: str = Field(
@@ -101,7 +103,7 @@ def format_sections(sections: list[Section]) -> str:
         """
     return formatted_str
 
-@traceable
+@traceable # LangSmith decorator for tracing 
 def tavily_search(query):
     """ Search the web using the Tavily API.
     
