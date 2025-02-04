@@ -27,3 +27,6 @@ The architecture of this project is inspired and adapted from this repository [R
 
 ## LangSmith Tracing  
 <img width="1916" alt="image" src="https://github.com/user-attachments/assets/4564635b-2567-445e-a88f-0adc50730b42" />
+
+## Application UI
+<img width="936" alt="image" src="https://github.com/user-attachments/assets/030c47c3-510a-4632-93e4-13b92f101f8e" />
