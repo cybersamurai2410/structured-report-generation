@@ -20,8 +20,7 @@ This project uses [o3-mini](https://platform.openai.com/docs/models#o3-mini) rea
 ![image](https://github.com/user-attachments/assets/f425f5e6-be27-4f7e-a623-baaf09456fab)
 
 ### LangGraph Agentic Workflow:
-
-![image](https://github.com/user-attachments/assets/dcf187d7-9c28-4023-a06f-2b5b148ce0cb)
+![image](https://github.com/user-attachments/assets/5d7bcc4a-174c-4b46-9803-66ec6132659e)
 
 ## LangSmith Tracing  
 <img width="1916" alt="image" src="https://github.com/user-attachments/assets/4564635b-2567-445e-a88f-0adc50730b42" />
