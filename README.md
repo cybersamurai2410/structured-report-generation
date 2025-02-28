@@ -17,9 +17,7 @@ This project uses [o3-mini](https://platform.openai.com/docs/models#o3-mini) rea
 * Processes relevant data for each section
 
 ## Architecture
-The architecture of this project is inspired and adapted from this repository [Report mAIstro](https://github.com/langchain-ai/report-mAIstro) 
-
-![image](https://github.com/user-attachments/assets/a1cb48e6-55bc-4217-834d-d2d8fe7ab6c4)
+![image](https://github.com/user-attachments/assets/f425f5e6-be27-4f7e-a623-baaf09456fab)
 
 ### LangGraph Agentic Workflow:
 
