@@ -5,7 +5,7 @@ The Agent takes in user defined topics and structure, then plans the topics of t
 
 View example of generated report [final_report.md](final_report.md)
 
-This project uses [o3-mini](https://platform.openai.com/docs/models#o3-mini) reasoning model via OpenAI API for the planning phase then [llama-3.3-70b](https://build.nvidia.com/meta/llama-3_3-70b-instruct) LLM via NVIDIA NIM API and Tavily or Perplexity API for the research and report writing phase.
+This project uses [o3-mini](https://platform.openai.com/docs/models#o3-mini) reasoning model via OpenAI API for the planning phase then [llama-3.3-70b](https://build.nvidia.com/meta/llama-3_3-70b-instruct) LLM via NVIDIA NIM API and web search API (Tavily, Perplexity, Exa) for the research and report writing phase.
 
 ## Agentic Workflow
 **Phase 1 - Planning**
