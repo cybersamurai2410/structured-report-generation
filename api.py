@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from main import generate_report, podcast_from_report
+from mangum import Mangum  # AWS Lambda adapter
 
 app = FastAPI()
 
@@ -12,3 +13,6 @@ async def generate_report_api(report_topic: str, number_of_queries: int = 2):
 async def podcast_from_report_api(voice: str = "", language: str = "en", duration: int = 1):
     await podcast_from_report(voice, language, duration)
     return {"message": "Podcast generated successfully"}
+
+# AWS Lambda Handler
+handler = Mangum(app)
